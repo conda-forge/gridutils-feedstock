@@ -1,12 +1,13 @@
 {% set version = "1.0" %}
+{% set commit = "ec304157ea05e520dfa07dd13f72534c5df06081" %}
 
 package:
   name: gridutils
   version: {{ version }}
 
 source:
-  url: https://github.com/sakov/gridutils-c/archive/v{{ version }}.tar.gz
-  sha256: ec304157ea05e520dfa07dd13f72534c5df06081
+  url: https://github.com/sakov/gridutils-c/archive/{{ commit }}.tar.gz
+  sha256: 358e93d2e3431d9e2d4c0574d25d97dd26585204e1e8407e817429f40ebf406e
 
 build:
   number: 3
