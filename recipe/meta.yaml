@@ -15,7 +15,8 @@ build:
 
 requirements:
   build:
-    - toolchain
+    - {{ compiler('c') }}
+  host:
     - nn
     - csa
   run:
