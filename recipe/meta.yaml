@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/sakov/gridutils-c/archive/{{ commit }}.tar.gz
-  sha256: 358e93d2e3431d9e2d4c0574d25d97dd26585204e1e8407e817429f40ebf406e
+  sha256: 001b43217a3dc76eaaa8f2f110437ae2e3d9a5311cdd47dca2cc0d52978a5297
 
 build:
   number: 3
