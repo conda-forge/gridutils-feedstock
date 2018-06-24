@@ -5,12 +5,11 @@ package:
   version: {{ version }}
 
 source:
-  fn: v{{ version }}.tar.gz
   url: https://github.com/sakov/gridutils-c/archive/v{{ version }}.tar.gz
-  sha256: 358e93d2e3431d9e2d4c0574d25d97dd26585204e1e8407e817429f40ebf406e
+  sha256: ec304157ea05e520dfa07dd13f72534c5df06081
 
 build:
-  number: 2
+  number: 3
   skip: True  # [win]
 
 requirements:
@@ -26,12 +25,13 @@ requirements:
 test:
   commands:
     - gridbathy -h
-    - conda inspect linkages -p $PREFIX gridutils  # [not win]
-    - conda inspect objects -p $PREFIX gridutils  # [osx]
+    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
+    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
 
 about:
   home: https://github.com/sakov/gridutils-c
   license: BSD 2-Clause
+  license_file: gridutils/LICENSE
   summary: 'C library functions and command line utilities for working with curvilinear grids.'
 
 extra:
