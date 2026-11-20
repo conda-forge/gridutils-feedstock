@@ -38,6 +38,26 @@ requirements:
 tests:
   - script:
       - gridbathy -h
+  - package_contents:
+      bin:
+        - getbound
+        - getnodes
+        - gridbathy
+        - insertgrid
+        - setbathy
+        - subgrid
+        - xy2ij
+      include:
+        - gridmap.h
+        - gridnodes.h
+        - gucommon.h
+        - guquit.h
+      lib:
+        - libgu.a
+      # Upstream names the shared library libgu.so on all Unix platforms, so
+      # it does not match the lib glob, which expects libgu.dylib on macOS.
+      files:
+        - lib/libgu.so
 
 about:
   homepage: https://github.com/sakov/gridutils-c
