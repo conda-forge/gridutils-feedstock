@@ -10,26 +10,58 @@ package:
 source:
   url: https://github.com/sakov/gridutils-c/archive/v${{ version }}.tar.gz
   sha256: 358e93d2e3431d9e2d4c0574d25d97dd26585204e1e8407e817429f40ebf406e
+  patches:
+    # Upstream links libgu.so without $(LDFLAGS) or -lm, leaving it with
+    # undefined libm symbols (acos, hypot, sqrt) but no NEEDED entry for libm.
+    - patches/link-libgu-so-against-libm.patch
 
 build:
-  number: 1004
-  skip: win
+  number: 1005
 
 requirements:
   build:
     - ${{ compiler('c') }}
     - ${{ stdlib('c') }}
-    - make
+    - if: unix
+      then:
+        - make
   host:
     - nn
     - csa
   run:
     - nn
     - csa
+  run_exports:
+    # libgu.so has no SONAME and upstream makes no ABI guarantees, so pin
+    # consumers to the patch release they were built against.
+    - ${{ pin_subpackage('gridutils', upper_bound='x.x.x') }}
 
 tests:
   - script:
       - gridbathy -h
+  - package_contents:
+      bin:
+        - getbound
+        - getnodes
+        - gridbathy
+        - insertgrid
+        - setbathy
+        - subgrid
+        - xy2ij
+      include:
+        - gridmap.h
+        - gridnodes.h
+        - gucommon.h
+        - guquit.h
+      lib:
+        - if: unix
+          then: libgu.a
+          else: gu.lib
+      # Upstream names the shared library libgu.so on all Unix platforms, so
+      # it does not match the lib glob, which expects libgu.dylib on macOS.
+      files:
+        - if: unix
+          then: lib/libgu.so
 
 about:
   homepage: https://github.com/sakov/gridutils-c
