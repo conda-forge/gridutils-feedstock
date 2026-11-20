@@ -1,0 +1,11 @@
+--- a/gridutils/makefile.in
++++ b/gridutils/makefile.in
+@@ -113,7 +113,7 @@
+ 
+ libgu.so: $(SHLIBOBJECTS)
+ 	rm -f $@
+-	$(CC) -shared -o $@ $(SHLIBOBJECTS)
++	$(CC) -shared $(LDFLAGS) -o $@ $(SHLIBOBJECTS) $(MLIB)
+ 
+ standalone: override LDFLAGS+=-static
+ standalone: $(PROGRAMS)

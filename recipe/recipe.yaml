@@ -10,9 +10,13 @@ package:
 source:
   url: https://github.com/sakov/gridutils-c/archive/v${{ version }}.tar.gz
   sha256: 358e93d2e3431d9e2d4c0574d25d97dd26585204e1e8407e817429f40ebf406e
+  patches:
+    # Upstream links libgu.so without $(LDFLAGS) or -lm, leaving it with
+    # undefined libm symbols (acos, hypot, sqrt) but no NEEDED entry for libm.
+    - patches/link-libgu-so-against-libm.patch
 
 build:
-  number: 1004
+  number: 1005
   skip: win
 
 requirements:
