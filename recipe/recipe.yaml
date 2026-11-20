@@ -30,6 +30,10 @@ requirements:
   run:
     - nn
     - csa
+  run_exports:
+    # libgu.so has no SONAME and upstream makes no ABI guarantees, so pin
+    # consumers to the patch release they were built against.
+    - ${{ pin_subpackage('gridutils', upper_bound='x.x.x') }}
 
 tests:
   - script:
